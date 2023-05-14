@@ -1,0 +1,55 @@
+#!ipxe
+:start
+menu iPXE boot menu build 20230508
+item --gap --               ------------------------- Operating systems ------------------------------
+item --key w Win11          Boot to Windows 11
+item --key d WinPE          Boot to Windows PE
+item --gap --               ------------------------- Advanced options -------------------------------
+item --key c config         Configure settings
+item shell                  Drop to iPXE shell
+item reboot                 Reboot computer
+item
+item --key x exit           Exit iPXE and continue BIOS boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+set menu-timeout 0
+goto ${selected}
+
+:cancel
+echo You cancelled the menu, dropping you to a shell
+
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+goto start
+
+:failed
+echo Failed to start, will return to main menu within 5 seconds
+sleep 5
+goto start
+
+:reboot
+reboot
+
+:exit
+exit
+
+:config
+config
+goto start
+
+:Win11
+echo Boot to Windows from iSCSI
+sanboot --filename \Win11\bootmgfw.efi --keep ${iscsi-san} || goto failed
+goto start
+
+:WinPE
+echo Connect to iSCSI
+sanhook ${iscsi-san} || goto failed
+echo Load to Kernel
+kernel wimboot
+initrd http://${next-server}/WinPE/BCD                    BCD
+initrd http://${next-server}/WinPE/boot.sdi               boot.sdi
+initrd http://${next-server}/WinPE/boot.wim               boot.wim
+echo Boot to Windows
+boot || goto failed
+goto start
