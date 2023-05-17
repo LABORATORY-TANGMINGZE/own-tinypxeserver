@@ -2,8 +2,9 @@
 :start
 menu iPXE boot menu build 20230508
 item --gap --               ------------------------- Operating systems ------------------------------
-item --key w Win11          Boot to Windows 11
-item --key d WinPE          Boot to Windows PE
+item --key 1 Win11          1) Boot to Windows 11
+item --key 2 WinPE          2) Boot to Windows PE
+item --key 3 WinPE4ISO      3) Boot to Windows PE from ISO
 item --gap --               ------------------------- Advanced options -------------------------------
 item --key c config         Configure settings
 item shell                  Drop to iPXE shell
@@ -38,18 +39,37 @@ config
 goto start
 
 :Win11
-echo Boot to Windows from iSCSI
-sanboot --filename \Win11\bootmgfw.efi --keep ${iscsi-san} || goto failed
+echo
+echo Connect to iSCSI
+echo
+sanhook ${iscsi-san} || goto failed
+echo
+echo Boot to Windows
+echo
+sanboot || goto failed
 goto start
 
 :WinPE
+echo
 echo Connect to iSCSI
+echo
 sanhook ${iscsi-san} || goto failed
+echo
 echo Load to Kernel
+echo
 kernel wimboot
 initrd http://${next-server}/WinPE/BCD                    BCD
 initrd http://${next-server}/WinPE/boot.sdi               boot.sdi
 initrd http://${next-server}/WinPE/boot.wim               boot.wim
+echo
 echo Boot to Windows
+echo
 boot || goto failed
+goto start
+
+:WinPE4ISO
+echo
+echo Boot to Windows from ISO
+echo
+sanboot --drive 0xff http://${next-server}/WinPE/boot.iso || goto failed
 goto start
