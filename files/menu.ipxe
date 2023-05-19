@@ -53,7 +53,7 @@ goto start
 echo
 echo Connect to iSCSI
 echo
-sanhook ${iscsi-root-path} || goto failed
+sanhook --drive 0x80 ${iscsi-root-path} || goto failed
 echo
 echo Load to Kernel
 echo
