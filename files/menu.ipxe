@@ -6,54 +6,54 @@ item --key 1 Win11          1) Boot to Windows 11
 item --key 2 WinPE          2) Boot to Windows PE
 item --key 3 WinPE4ISO      3) Boot to Windows PE from ISO
 item --gap --               ------------------------- Advanced options -------------------------------
-item --key c config         Configure settings
-item shell                  Drop to iPXE shell
-item reboot                 Reboot computer
+item --key c Config         Configure settings
+item Shell                  Drop to iPXE shell
+item Reboot                 Reboot computer
 item
-item --key x exit           Exit iPXE and continue BIOS boot
-choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+item --key x Exit           Exit iPXE and continue BIOS boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto Cancel
 set menu-timeout 0
 goto ${selected}
 
-:cancel
-echo You cancelled the menu, dropping you to a shell
+:Config
+config
+goto start
 
-:shell
+:Shell
 echo Type 'exit' to get the back to the menu
 shell
 goto start
 
-:failed
-echo Failed to start, will return to main menu within 5 seconds
-sleep 5
-goto start
-
-:reboot
+:Reboot
 reboot
 
-:exit
+:Exit
 exit
 
-:config
-config
+:Cancel
+echo You cancelled the menu, dropping you to a shell
+
+:Failed
+echo Failed to start, will return to main menu within 5 seconds
+sleep 5
 goto start
 
 :Win11
 echo
 echo Connect to iSCSI
 echo
-sanhook --drive 0x80 ${iscsi-root-path} || goto failed
+sanhook --drive 0x80 ${iscsi-root-path} || goto Failed
 echo
 echo Boot to Windows
 echo
-sanboot || goto failed
+sanboot || goto Failed
 goto start
 
 :WinPE
 echo
 echo Connect to iSCSI
 echo
-sanhook --drive 0x80 ${iscsi-root-path} || goto failed
+sanhook --drive 0x80 ${iscsi-root-path} || goto Failed
 echo
 echo Load to Kernel
 echo
@@ -64,12 +64,12 @@ initrd http://${next-server}/WinPE/boot.wim               boot.wim
 echo
 echo Boot to Windows
 echo
-boot || goto failed
+boot || goto Failed
 goto start
 
 :WinPE4ISO
 echo
 echo Boot to Windows from ISO
 echo
-sanboot --drive 0xff http://${next-server}/WinPE/boot.iso || goto failed
+sanboot --drive 0xff http://${next-server}/WinPE/boot.iso || goto Failed
 goto start
