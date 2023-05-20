@@ -1,6 +1,6 @@
 #!ipxe
-:start
-menu iPXE boot menu build 20230508
+:Start
+menu iPXE Boot Menu Build 20230520
 item --gap --               ------------------------- Operating systems ------------------------------
 item --key 1 Win11          1) Boot to Windows 11
 item --key 2 WinPE          2) Boot to Windows PE
@@ -17,12 +17,12 @@ goto ${selected}
 
 :Config
 config
-goto start
+goto Start
 
 :Shell
 echo Type 'exit' to get the back to the menu
 shell
-goto start
+goto Start
 
 :Reboot
 reboot
@@ -34,9 +34,9 @@ exit
 echo You cancelled the menu, dropping you to a shell
 
 :Failed
-echo Failed to start, will return to main menu within 5 seconds
-sleep 5
-goto start
+echo Failed to start, will return to main menu within 3 seconds
+sleep 3
+goto Start
 
 :Win11
 echo
@@ -47,7 +47,7 @@ echo
 echo Boot to Windows
 echo
 sanboot || goto Failed
-goto start
+goto Start
 
 :WinPE
 echo
@@ -65,11 +65,11 @@ echo
 echo Boot to Windows
 echo
 boot || goto Failed
-goto start
+goto Start
 
 :WinPE4ISO
 echo
 echo Boot to Windows from ISO
 echo
 sanboot --drive 0xff http://${next-server}/WinPE/boot.iso || goto Failed
-goto start
+goto Start
