@@ -7,7 +7,7 @@
 ## DOT
 
 ```plain
-PS C:\Users\ecs-user\Downloads> echo @'
+PS C:\Users\Administrator\Downloads> echo @'
 echo ""
 echo "## Part 0"
 echo ""
@@ -33,7 +33,7 @@ $Node_7_Wireless_Router_1 = '[Node_7_Wireless_Router_1\nCIDR is 192.168.1.0/24]'
 
 echo "$Node_0_ISP_Modem_0 -> $Node_1_Switch_0 $Node_1_Switch_0 -> $Node_2_Switch_Central $Node_1_Switch_0 -> $Node_3_Router_NorthWest $Node_2_Switch_Central -> $Node_4_Router_0 $Node_4_Router_0 -> $Node_5_Switch_0 $Node_5_Switch_0 -> $Node_6_Wireless_Router_0 $Node_5_Switch_0 -> $Node_7_Wireless_Router_1" | graph-easy
 '@ > dot.ps1
-PS C:\Users\ecs-user\Downloads>
+PS C:\Users\Administrator\Downloads>
 PS C:\Users\Administrator\Downloads> .\dot.ps1
 
 ## Part 0
@@ -102,4 +102,104 @@ PS C:\Users\Administrator\Downloads> .\dot.ps1
                            | Node_3_Router_NorthWest |                                                                   | Node_7_Wireless_Router_1 |
                            |          PPPoE          |                                                                   |  CIDR is 192.168.1.0/24  |
                            +-------------------------+                                                                   +--------------------------+
+```
+
+## DOT
+
+```plain
+PS C:\Users\Administrator\Downloads> echo @'
+echo ""
+echo "## Part 0"
+echo ""
+
+echo ""
+echo "### Point 0.0.12"
+echo ""
+
+echo "[Node_0_Consumer_0] [Node_1_Consumer_Index] [Node_2_Consumer_Identity_Number] [Node_3_Consumer_Identity_Name] [Node_4_Consumer_Online_Time] [Node_5_Producer_Menu] [Node_6_Producer_Menu_Index] [Node_7_Producer_Menu_Project_Name] [Node_8_Producer_Menu_Count]" | graph-easy
+
+echo ""
+echo "### Point 0.1.14"
+echo ""
+
+$Node_0_Consumer_0 = '[Node_0_Consumer_0]'
+$Node_1_Consumer_Index = '[Node_1_Consumer_Index]'
+$Node_2_Consumer_Identity_Number = '[Node_2_Consumer_Identity_Number]'
+$Node_3_Consumer_Identity_Name = '[Node_3_Consumer_Identity_Name]'
+$Node_4_Consumer_Online_Time = '[Node_4_Consumer_Online_Time]'
+$Node_5_Producer_Menu = '[Node_5_Producer_Menu]'
+$Node_6_Producer_Menu_Index = '[Node_6_Producer_Menu_Index]'
+$Node_7_Producer_Menu_Project_Name = '[Node_7_Producer_Menu_Project_Name]'
+$Node_8_Producer_Menu_Count = '[Node_8_Producer_Menu_Count]'
+
+echo "$Node_0_Consumer_0 -> $Node_1_Consumer_Index $Node_0_Consumer_0 -> $Node_2_Consumer_Identity_Number $Node_0_Consumer_0 -> $Node_3_Consumer_Identity_Name $Node_0_Consumer_0 -> $Node_4_Consumer_Online_Time $Node_0_Consumer_0 -> $Node_6_Producer_Menu_Index" | graph-easy
+
+echo ""
+echo "### Point 0.2.8"
+echo ""
+
+echo "$Node_5_Producer_Menu -> $Node_6_Producer_Menu_Index $Node_5_Producer_Menu -> $Node_7_Producer_Menu_Project_Name $Node_5_Producer_Menu -> $Node_8_Producer_Menu_Count" | graph-easy
+'@ > dot.ps1
+PS C:\Users\Administrator\Downloads>
+PS C:\Users\Administrator\Downloads> .\dot.ps1
+
+## Part 0
+
+
+### Point 0.0.12
+
++-----------------------------------+
+|         Node_0_Consumer_0         |
++-----------------------------------+
++-----------------------------------+
+|       Node_1_Consumer_Index       |
++-----------------------------------+
++-----------------------------------+
+|  Node_2_Consumer_Identity_Number  |
++-----------------------------------+
++-----------------------------------+
+|   Node_3_Consumer_Identity_Name   |
++-----------------------------------+
++-----------------------------------+
+|    Node_4_Consumer_Online_Time    |
++-----------------------------------+
++-----------------------------------+
+|       Node_5_Producer_Menu        |
++-----------------------------------+
++-----------------------------------+
+|    Node_6_Producer_Menu_Index     |
++-----------------------------------+
++-----------------------------------+
+| Node_7_Producer_Menu_Project_Name |
++-----------------------------------+
++-----------------------------------+
+|    Node_8_Producer_Menu_Count     |
++-----------------------------------+
+
+### Point 0.1.14
+
++-----------------------------+     +-------------------------------+     +---------------------------------+
+| Node_4_Consumer_Online_Time | <-- |                               | --> |      Node_1_Consumer_Index      |
++-----------------------------+     |       Node_0_Consumer_0       |     +---------------------------------+
++-----------------------------+     |                               |     +---------------------------------+
+| Node_6_Producer_Menu_Index  | <-- |                               | --> | Node_2_Consumer_Identity_Number |
++-----------------------------+     +-------------------------------+     +---------------------------------+
+                                      |
+                                      |
+                                      v
+                                    +-------------------------------+
+                                    | Node_3_Consumer_Identity_Name |
+                                    +-------------------------------+
+
+### Point 0.2.8
+
++----------------------------+     +-----------------------------------+     +----------------------------+
+| Node_8_Producer_Menu_Count | <-- |       Node_5_Producer_Menu        | --> | Node_6_Producer_Menu_Index |
++----------------------------+     +-----------------------------------+     +----------------------------+
+                                     |
+                                     |
+                                     v
+                                   +-----------------------------------+
+                                   | Node_7_Producer_Menu_Project_Name |
+                                   +-----------------------------------+
 ```
