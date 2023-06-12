@@ -216,12 +216,12 @@ drop table if exists consumer_0;
 
 create table consumer_0(
   consumerIndex INT auto_increment not null,
-	consumerIdentityNumber VARCHAR(20),
-	consumerIdentityName VARCHAR(10),
-	consumerOnlineTime DATETIME,
-	producerMenuIndex INT,
-	PRIMARY KEY(consumerIndex),
-	FOREIGN KEY(producerMenuIndex) REFERENCES producer_menu(producerMenuIndex)
+  consumerIdentityNumber VARCHAR(20),
+  consumerIdentityName VARCHAR(10),
+  consumerOnlineTime DATETIME,
+  producerMenuIndex INT,
+  PRIMARY KEY(consumerIndex),
+  FOREIGN KEY(producerMenuIndex) REFERENCES producer_menu(producerMenuIndex)
 );
 
 ## 为 consumer_0 增加 数据
@@ -236,9 +236,9 @@ drop table if exists producer_menu;
 
 create table producer_menu(
   producerMenuIndex INT auto_increment not null,
-	producerMenuProjectName VARCHAR(20),
-	producerMenuCount INT,
-	PRIMARY KEY(producerMenuIndex)
+  producerMenuProjectName VARCHAR(20),
+  producerMenuCount INT,
+  PRIMARY KEY(producerMenuIndex)
 );
 
 ## 为 producer_menu 增加 数据
