@@ -212,7 +212,9 @@ create database if not exists dot;
 
 use dot;
 
+set foreign_key_checks = 0;
 drop table if exists producer_menu;
+set foreign_key_checks = 1;
 
 create table producer_menu(
   producerMenuIndex INT auto_increment not null,
@@ -225,12 +227,13 @@ create table producer_menu(
 
 insert into producer_menu values (0, '8 小时 畅玩', 8);
 
-
 ## 创建 consumer_0
 
 use dot;
 
+set foreign_key_checks = 0;
 drop table if exists consumer_0;
+set foreign_key_checks = 1;
 
 create table consumer_0(
   consumerIndex INT auto_increment not null,
@@ -244,6 +247,6 @@ create table consumer_0(
 
 ## 为 consumer_0 增加 数据
 
-insert into consumer_0 values (0, '210202199702194932', '唐铭泽', '2023-06-12 06:12:00', 0);
+insert into consumer_0 values (0, '210202199702194932', '唐铭泽', '2023-06-12 06:12:00', 1);
 '@ > dot.sql
 ```
