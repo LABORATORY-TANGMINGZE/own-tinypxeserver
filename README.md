@@ -208,6 +208,24 @@ PS C:\Users\Administrator\Downloads> .\dot.ps1
 PS C:\Users\Administrator\Downloads> echo @'
 create database if not exists dot;
 
+## 创建 producer_menu
+
+use dot;
+
+drop table if exists producer_menu;
+
+create table producer_menu(
+  producerMenuIndex INT auto_increment not null,
+  producerMenuProjectName VARCHAR(20),
+  producerMenuCount INT,
+  PRIMARY KEY(producerMenuIndex)
+);
+
+## 为 producer_menu 增加 数据
+
+insert into producer_menu values (0, '8 小时 畅玩', 8);
+
+
 ## 创建 consumer_0
 
 use dot;
@@ -227,22 +245,5 @@ create table consumer_0(
 ## 为 consumer_0 增加 数据
 
 insert into consumer_0 values (0, '210202199702194932', '唐铭泽', '2023-06-12 06:12:00', 0);
-
-## 创建 producer_menu
-
-use dot;
-
-drop table if exists producer_menu;
-
-create table producer_menu(
-  producerMenuIndex INT auto_increment not null,
-  producerMenuProjectName VARCHAR(20),
-  producerMenuCount INT,
-  PRIMARY KEY(producerMenuIndex)
-);
-
-## 为 producer_menu 增加 数据
-
-insert into producer_menu values (0, '8 小时 畅玩', 8);
 '@ > dot.sql
 ```
