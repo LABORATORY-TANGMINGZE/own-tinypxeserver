@@ -225,7 +225,8 @@ create table producer_menu(
 
 ## 为 producer_menu 增加 数据
 
-insert into producer_menu values (0, '8 小时 畅玩', 8);
+insert into producer_menu values (0, 'Minute', 1);
+insert into producer_menu values (0, 'Hour', 8);
 
 ## 创建 consumer_0
 
@@ -247,6 +248,6 @@ create table consumer_0(
 
 ## 为 consumer_0 增加 数据
 
-insert into consumer_0 values (0, '210202199702194932', '唐铭泽', '2023-06-12 06:12:00', 1);
+insert into consumer_0 values (0, '210202199702194932', '唐铭泽', '2023-06-12 06:12:00', 2);
 '@ > dot.sql
 ```
